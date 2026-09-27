@@ -23,3 +23,5 @@ echo "CLAUDE.md" >> crm-frontend/.gitignore
 # beside it.
 /.plugins/
 /.opencode-skills/
+AGENTS.md
+CLAUDE.md
