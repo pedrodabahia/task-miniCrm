@@ -13,11 +13,11 @@ Frontend do MiniCRM: gestão de clientes, contatos e pipeline de oportunidades d
 ## Como rodar
 
 ```bash
-pnpm install
-pnpm dev       # inicia o servidor de desenvolvimento (porta padrão 8443)
-pnpm build     # build de produção
-pnpm preview   # serve o build de produção localmente
-pnpm format    # formata o código com oxfmt
+npm install
+npm dev       # inicia o servidor de desenvolvimento (porta padrão 8443)
+npm build     # build de produção
+npm preview   # serve o build de produção localmente
+npm format    # formata o código com oxfmt
 ```
 
 ### Variáveis de ambiente
