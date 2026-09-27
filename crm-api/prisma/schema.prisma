@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+ }
+
+enum ClientStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum OpportunityStage {
+  LEAD
+  QUALIFICACAO
+  PROPOSTA
+  NEGOCIACAO
+  GANHA
+  PERDIDA
+}
+
+enum OpportunityStatus {
+  OPEN
+  CLOSED
+}
+
+model Client {
+  id            String           @id @default(uuid())
+  name          String
+  email         String           @unique
+  phone         String?
+  document      String           @unique
+  status        ClientStatus     @default(ACTIVE)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  contacts      Contact[]
+  opportunities Opportunity[]
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  position  String?
+  clientId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Restrict)
+
+  @@index([clientId])
+}
+
+model Opportunity {
+  id             String            @id @default(uuid())
+  title          String
+  description    String?
+  estimatedValue Decimal           @db.Decimal(15, 2)
+  stage          OpportunityStage  @default(LEAD)
+  status         OpportunityStatus @default(OPEN)
+  clientId       String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Restrict)
+
+  @@index([clientId])
+  @@index([stage])
+  @@index([status])
+}
